@@ -1,0 +1,26 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    namespace rootProject.ext.android["applicationId"]
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+
+        multiDexEnabled true
+        renderscriptTargetApi 18
+        renderscriptSupportModeEnabled true
+    }
+}
+
+dependencies {
+//    https://github.com/huanghaibin-dev/CalendarView
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api 'androidx.appcompat:appcompat:1.4.0'
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'com.github.bumptech.glide:glide:4.11.0'
+    api 'com.google.android.material:material:1.1.0'
+}
