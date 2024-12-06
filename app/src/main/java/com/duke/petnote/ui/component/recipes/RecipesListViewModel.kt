@@ -60,6 +60,24 @@ constructor(private val dataRepositoryRepository: DataRepositorySource) : BaseVi
     val showToast: LiveData<SingleEvent<Any>> get() = showToastPrivate
 
 
+    fun doLogin(userName: String, passWord: String) {
+        viewModelScope.launch {
+            wrapEspressoIdlingResource {
+                dataRepositoryRepository.doLogin(userName, passWord).collect {
+                }
+            }
+        }
+    }
+
+    fun listUser() {
+        viewModelScope.launch {
+            wrapEspressoIdlingResource {
+                dataRepositoryRepository.listUser().collect {
+                }
+            }
+        }
+    }
+
     fun getRecipes() {
         viewModelScope.launch {
             recipesLiveDataPrivate.value = Resource.Loading()

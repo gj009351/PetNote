@@ -18,15 +18,21 @@ import kotlin.coroutines.CoroutineContext
 
 class DataRepository @Inject constructor(private val remoteRepository: RemoteData, private val localRepository: LocalData, private val ioDispatcher: CoroutineContext) : DataRepositorySource {
 
+    override suspend fun listUser(): Flow<Resource<Recipes>> {
+        return flow {
+            emit(remoteRepository.listUser())
+        }.flowOn(ioDispatcher)
+    }
+
     override suspend fun requestRecipes(): Flow<Resource<Recipes>> {
         return flow {
             emit(remoteRepository.requestRecipes())
         }.flowOn(ioDispatcher)
     }
 
-    override suspend fun doLogin(loginRequest: LoginRequest): Flow<Resource<LoginResponse>> {
+    override suspend fun doLogin(userName: String, passWord: String): Flow<Resource<LoginResponse>> {
         return flow {
-            emit(localRepository.doLogin(loginRequest))
+            emit(remoteRepository.doLogin(userName, passWord))
         }.flowOn(ioDispatcher)
     }
 

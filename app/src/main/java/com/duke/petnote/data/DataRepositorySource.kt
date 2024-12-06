@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface DataRepositorySource {
+    suspend fun listUser(): Flow<Resource<Recipes>>
     suspend fun requestRecipes(): Flow<Resource<Recipes>>
-    suspend fun doLogin(loginRequest: LoginRequest): Flow<Resource<LoginResponse>>
+    suspend fun doLogin(userName: String, passWord: String): Flow<Resource<LoginResponse>>
     suspend fun addToFavourite(id: String): Flow<Resource<Boolean>>
     suspend fun removeFromFavourite(id: String): Flow<Resource<Boolean>>
     suspend fun isFavourite(id: String): Flow<Resource<Boolean>>

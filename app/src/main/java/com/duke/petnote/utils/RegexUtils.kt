@@ -17,7 +17,13 @@ object RegexUtils {
                     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
                     ")+"
     )
+    private val PHONE_NUMBER: Pattern = Pattern.compile("^1[3-9]\\d{9}\$")
+
     fun isValidEmail(email: String): Boolean {
         return EMAIL_ADDRESS.matcher(email).matches()
+    }
+    fun isValidPhoneNumber(phoneNumber: String): Boolean {
+        // 正则表达式：以1开头，第二位是3-9之间的数字，后面跟9位数字
+        return phoneNumber.matches(PHONE_NUMBER.toRegex())
     }
 }

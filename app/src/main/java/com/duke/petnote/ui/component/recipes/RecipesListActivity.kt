@@ -49,7 +49,8 @@ class RecipesListActivity : BaseActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.rvRecipesList.layoutManager = layoutManager
         binding.rvRecipesList.setHasFixedSize(true)
-        recipesListViewModel.getRecipes()
+//        recipesListViewModel.getRecipes()
+        recipesListViewModel.listUser()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

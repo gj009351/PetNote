@@ -13,6 +13,7 @@ import com.duke.petnote.data.error.PASS_WORD_ERROR
 import com.duke.petnote.data.error.USER_NAME_ERROR
 import com.duke.petnote.ui.base.BaseViewModel
 import com.duke.petnote.utils.RegexUtils.isValidEmail
+import com.duke.petnote.utils.RegexUtils.isValidPhoneNumber
 import com.duke.petnote.utils.SingleEvent
 import com.duke.petnote.utils.wrapEspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -42,7 +43,7 @@ class LoginViewModel @Inject constructor(private val dataRepository: DataReposit
 
 
     fun doLogin(userName: String, passWord: String) {
-        val isUsernameValid = isValidEmail(userName)
+        val isUsernameValid = isValidEmail(userName) || isValidPhoneNumber(userName)
         val isPassWordValid = passWord.trim().length > 4
         if (isUsernameValid && !isPassWordValid) {
             loginLiveDataPrivate.value = Resource.DataError(PASS_WORD_ERROR)
@@ -54,7 +55,7 @@ class LoginViewModel @Inject constructor(private val dataRepository: DataReposit
             viewModelScope.launch {
                 loginLiveDataPrivate.value = Resource.Loading()
                 wrapEspressoIdlingResource {
-                    dataRepository.doLogin(loginRequest = LoginRequest(userName, passWord)).collect {
+                    dataRepository.doLogin(userName, passWord).collect {
                         loginLiveDataPrivate.value = it
                     }
                 }

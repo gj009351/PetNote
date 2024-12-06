@@ -3,7 +3,9 @@ package com.duke.petnote.ui.component.login
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
+import com.duke.petnote.R
 import com.google.android.material.snackbar.Snackbar
 import com.duke.petnote.data.Resource
 import com.duke.petnote.data.dto.login.LoginResponse
@@ -25,6 +27,10 @@ class LoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.tip.setText(getString(R.string.tip_login_no_account) + " " + getString(R.string.action_sign_up));
+        StringUtils.setTextLast(this, binding.tip, getString(R.string.tip_login_no_account)
+            , " " + getString(R.string.action_sign_up)
+            , R.color.white);
         binding.login.setOnClickListener { doLogin() }
     }
 
@@ -42,8 +48,8 @@ class LoginActivity : BaseActivity() {
 
     private fun doLogin() {
         loginViewModel.doLogin(
-            binding.username.text.trim().toString(),
-            binding.password.text.toString()
+            binding.phoneEdit.text.trim().toString(),
+            binding.passwordEdit.text.toString()
         )
     }
 
