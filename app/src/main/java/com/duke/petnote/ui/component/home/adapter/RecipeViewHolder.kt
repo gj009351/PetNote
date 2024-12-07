@@ -1,4 +1,4 @@
-package com.duke.petnote.ui.component.recipes.adapter
+package com.duke.petnote.ui.component.home.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso

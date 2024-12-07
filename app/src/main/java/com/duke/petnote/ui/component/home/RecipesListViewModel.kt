@@ -1,4 +1,4 @@
-package com.duke.petnote.ui.component.recipes
+package com.duke.petnote.ui.component.home
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
@@ -12,7 +12,6 @@ import com.duke.petnote.ui.base.BaseViewModel
 import com.duke.petnote.utils.SingleEvent
 import com.duke.petnote.utils.wrapEspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.Locale.ROOT
 import javax.inject.Inject

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
 
 /**
@@ -18,7 +19,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ImmersionBar.with(this).init();
+        ImmersionBar.with(this).hideBar(BarHide.FLAG_HIDE_BAR).init();
         initViewBinding()
         observeViewModel()
     }

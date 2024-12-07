@@ -1,4 +1,4 @@
-package com.duke.petnote.ui.component.recipes.adapter
+package com.duke.petnote.ui.component.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.duke.petnote.data.dto.recipes.RecipesItem
 import com.duke.petnote.databinding.RecipeItemBinding
 import com.duke.petnote.ui.base.listeners.RecyclerItemListener
-import com.duke.petnote.ui.component.recipes.RecipesListViewModel
+import com.duke.petnote.ui.component.home.RecipesListViewModel
 
 /**
  * Created by AhmedEltaher

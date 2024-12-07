@@ -3,7 +3,6 @@ package com.duke.petnote.ui.component.login
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import com.duke.petnote.R
 import com.google.android.material.snackbar.Snackbar
@@ -11,7 +10,7 @@ import com.duke.petnote.data.Resource
 import com.duke.petnote.data.dto.login.LoginResponse
 import com.duke.petnote.databinding.LoginActivityBinding
 import com.duke.petnote.ui.base.BaseActivity
-import com.duke.petnote.ui.component.recipes.RecipesListActivity
+import com.duke.petnote.ui.component.home.HomeActivity
 import com.duke.petnote.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -68,7 +67,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun navigateToMainScreen() {
-        val nextScreenIntent = Intent(this, RecipesListActivity::class.java)
+        val nextScreenIntent = Intent(this, HomeActivity::class.java)
         startActivity(nextScreenIntent)
         finish()
     }
