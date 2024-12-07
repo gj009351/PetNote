@@ -5,6 +5,7 @@ import com.duke.petnote.data.dto.login.LoginResponse
 import com.duke.petnote.data.dto.recipes.Recipes
 import com.duke.petnote.data.dto.recipes.RecipesItem
 import com.duke.petnote.data.dto.recipes.RequestBody
+import com.duke.petnote.data.error.CHECK_YOUR_FIELDS
 import com.duke.petnote.utils.BodyUtils
 import com.duke.petnote.data.error.NETWORK_ERROR
 import com.duke.petnote.data.error.NO_INTERNET_CONNECTION
@@ -26,10 +27,14 @@ constructor(private val serviceGenerator: ServiceGenerator, private val networkC
         val body = BodyUtils.login(phone, password)
         return when (val response = processCall { recipesService.login(body) }) {
             is LoginResponse -> {
-                Resource.Success(data = response)
+                if (response.success && response.results.isNotEmpty()) {
+                    Resource.Success(data = response)
+                } else {
+                    Resource.DataError(errorCode = CHECK_YOUR_FIELDS)
+                }
             }
             else -> {
-                Resource.DataError(errorCode = response as Int)
+                Resource.DataError(errorCode = CHECK_YOUR_FIELDS)
             }
         }
     }

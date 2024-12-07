@@ -1,4 +1,4 @@
-package com.duke.petnote.ui.component.recipes
+package com.duke.petnote.ui.component.home
 
 import android.app.SearchManager
 import android.content.Context
@@ -11,9 +11,8 @@ import android.view.View.VISIBLE
 import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.duke.petnote.R
 import com.duke.petnote.RECIPE_ITEM_KEY
 import com.duke.petnote.data.Resource
@@ -23,19 +22,20 @@ import com.duke.petnote.data.error.SEARCH_ERROR
 import com.duke.petnote.databinding.HomeActivityBinding
 import com.duke.petnote.ui.base.BaseActivity
 import com.duke.petnote.ui.component.details.DetailsActivity
-import com.duke.petnote.ui.component.recipes.adapter.RecipesAdapter
 import com.duke.petnote.utils.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+
 
 /**
  * Created by AhmedEltaher
  */
 @AndroidEntryPoint
-class RecipesListActivity : BaseActivity() {
+class HomeActivity : BaseActivity() {
     private lateinit var binding: HomeActivityBinding
 
     private val recipesListViewModel: RecipesListViewModel by viewModels()
-    private lateinit var recipesAdapter: RecipesAdapter
 
     override fun initViewBinding() {
         binding = HomeActivityBinding.inflate(layoutInflater)
@@ -46,11 +46,11 @@ class RecipesListActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.title = getString(R.string.recipe)
-        val layoutManager = LinearLayoutManager(this)
-        binding.rvRecipesList.layoutManager = layoutManager
-        binding.rvRecipesList.setHasFixedSize(true)
-//        recipesListViewModel.getRecipes()
         recipesListViewModel.listUser()
+
+        val color = ContextCompat.getColor(this, com.duke.petnote.R.color.white) // 你想要设置的颜色
+        binding.fab.setColorFilter(color) // 设置图标颜色
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -92,8 +92,6 @@ class RecipesListActivity : BaseActivity() {
 
     private fun bindListData(recipes: Recipes) {
         if (!(recipes.recipesList.isNullOrEmpty())) {
-            recipesAdapter = RecipesAdapter(recipesListViewModel, recipes.recipesList)
-            binding.rvRecipesList.adapter = recipesAdapter
             showDataView(true)
         } else {
             showDataView(false)
@@ -123,14 +121,12 @@ class RecipesListActivity : BaseActivity() {
 
     private fun showDataView(show: Boolean) {
         binding.tvNoData.visibility = if (show) GONE else VISIBLE
-        binding.rvRecipesList.visibility = if (show) VISIBLE else GONE
         binding.pbLoading.toGone()
     }
 
     private fun showLoadingView() {
         binding.pbLoading.toVisible()
         binding.tvNoData.toGone()
-        binding.rvRecipesList.toGone()
     }
 
 
